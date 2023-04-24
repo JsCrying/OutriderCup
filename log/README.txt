@@ -1,0 +1,1 @@
+查看uwsigi的pid: ps ax | grep uwsgi
