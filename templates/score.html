@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCORE</title>
+    <link rel="icon" type="image/png" href="../static/share/favicon.ico"/>
+    <!-- <link rel="stylesheet" href="../static/score/css/googleapis.css"> -->
+    <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/score/css/googleapis.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../static/source/vendor/bootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/source/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../static/score/css/score.css"> -->
+    <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/score/css/score.css">
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-score">
+            <div class="wrap-score">
+                <div class="title">
+                    <div class="session_hint">
+                        <p><span class="translate-innerhtml" la="第">第</span>
+                            <select id="session_number" name = "session_number">
+                                <option value="0" >0</option>
+                                <option value="1" >1</option>
+                                <option value="2" selected>2</option>
+                            </select>
+                            <span class="translate-innerhtml" la="届">届</span>
+                        </p>
+                        <p class="translate-innerhtml la" la="侦察骑士杯">侦察骑士杯</p>
+                    </div>
+                    <a href="/" class="translate-innerhtml" la="返回主页">返回主页</a>
+                    <div class="logo"></div>
+                </div>
+                <div class="score-table" id="score-table">
+                    <div class="table-title">
+                        <select name="choice" id="choice" class="choice">
+                        </select>
+                        <div class="language">
+                            <label>
+                                <input type="checkbox" class="language-selection" id="language_selection">
+                                <div class="language-btn">
+                                    <span class="btn-cn">CN</span>
+                                    <span class="btn-en">EN</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <table class="content" session_number="{{ session_number }}">
+                        </table>
+                        <ul class="pagination"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- <script src="../static/share/js/dict.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/share/js/dict.js"></script>
+<!-- <script src="../static/score/js/translate.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/score/js/translate.js"></script>
+<!-- <script src="../static/score/js/fetch_scores.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/score/js/fetch_scores.js"></script>
+<script>
+    function checkSelectedSession() {
+        let session_number = document.getElementById("session_number");
+        let session_index = session_number.selectedIndex;
+        session_value = session_number.options[session_index].value;
+        if (+session_value >= 2)
+            return true;
+        return false;
+    }
+    function load_page() {
+        let session_number = document.getElementById("session_number");
+        let session_number_index = session_number.selectedIndex;
+        session_number_value = session_number.options[session_number_index].value;
+
+        let choice = document.getElementById("choice");
+        let choice_index = choice.selectedIndex;
+        choice_value = choice.options[choice_index].value;
+
+        fetch_scores(session_number_value, choice_value);
+    }
+    function load_track() {
+        let session_number = document.getElementById("session_number");
+        let session_number_index = session_number.selectedIndex;
+        session_number_value = session_number.options[session_number_index].value;
+
+        // 每届赛道设置不同，需要动态加载
+        xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.open('GET', '/load_track?session_number='+session_number_value);
+        xhr.send();
+        xhr.onreadystatechange= function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    track_set = xhr.response.track_set;
+                    let choice = document.getElementById("choice");
+                    choice.innerHTML = "";
+                    for (let set = 0; set < track_set.length; ++set) {
+                        choice.options.add(new Option(track_set[set], track_set[set]));
+                    }
+                    choice.options.add(new Option('待审核', '待审核'));
+                    choice.options.add(new Option('不通过', '不通过'));
+
+                    let options_list = choice.getElementsByTagName('option');
+                    for (let i = 0; i < options_list.length; ++i) {
+                        let e = options_list[i];
+                        e.setAttribute("la", e.value);
+                        e.className += 'translate-innerhtml';
+                    }
+
+                    let choice_index = choice.selectedIndex;
+                    choice_value = choice.options[choice_index].value;
+
+                    fetch_scores(session_number_value, choice_value);
+                }
+            }
+        };
+
+    }
+</script>
+<script>
+    window.onload = function() { load_track() };
+
+    let choice = document.getElementById("choice");
+    choice.onchange = function() { 
+        load_page();
+    };
+
+    let session_number = document.getElementById("session_number");
+    session_number.onchange = function() { 
+        load_track();
+    };
+</script>

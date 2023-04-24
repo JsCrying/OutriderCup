@@ -1,0 +1,1 @@
+CREATE TABLE forlog_1 like forlog_0

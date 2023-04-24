@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../static/share/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="../static/home/css/home.css"> -->
+    <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/css/home.css">
+    <!-- <link rel="stylesheet" href="../static/home/css/util.css"> -->
+    <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/css/util.css">
+    <!-- <link rel="stylesheet" href="../static/share/language.css"> -->
+    <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/share/language.css">
+    <title>IOC</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="brand">
+                    <!-- <img src="../static/home/images/logo.jpg" alt=""> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/images/logo.jpg" alt="">
+                </a>
+                <span id="info" class="translate-innerhtml" la="{{ msg }}">
+                    {{ msg }}
+                </span>
+                <ul class="menu">
+                    <li><a href="/score" class="translate-innerhtml" la="查看成绩">查看成绩</a></li>
+                    <li><a href="#submit" id="submitButton" class="translate-innerhtml" la="提交成绩">提交成绩</a></li>
+                    <li><label><input type="checkbox" id="language_selection"><span>CN/EN</span></label></li>
+                    <li><a href="#tutorials" class="translate-innerhtml" la="安柏教程">安柏教程</a></li>
+                    <li class="btn-list-item">
+                        <a href="/login" class="btn btn-primary translate-innerhtml" la="管理员登录">
+                            管理员登录
+                        </a>
+                    </li>
+                </ul>
+                <div class="buttons">
+                    <a href="/login" class="btn btn-primary translate-innerhtml" la="管理员登录">
+                        管理员登录
+                    </a>
+                </div>
+                <button class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+
+            <div class="header-body">
+                <div class="header-text">
+                    <div>
+                        <h1 class="title">
+                            <span class="translate-innerhtml" la="第">第</span>&nbsp;{{ session_number }}&nbsp;<span class="translate-innerhtml" la="届">届</span> <br>
+                            <div class="translate-innerhtml" la="侦察骑士杯">侦察骑士杯</div>
+                        </h1>
+                        <p class="quote translate-innerhtml" la="“重要的不是强风而是勇气，">
+                            “重要的不是强风而是勇气，
+                        </p>
+                        <p class="quote translate-innerhtml" la="是它让你们成为世上最初的飞鸟。”">
+                            是它让你们成为世上最初的飞鸟。”
+                        </p>
+                        <div class="buttons">
+                            <a href="https://www.bilibili.com/read/cv22650967" class="btn btn-primary translate-innerhtml" la="比赛规则" target="_blank">
+                                比赛规则
+                            </a>
+                            <a href="https://space.bilibili.com/1240819753" class="btn btn-secondary translate-innerhtml" la="关于我们" target="_blank">
+                                关于我们
+                            </a>
+                        </div>
+                        <div class="stats">
+                            <div>
+                                <h2 class="counter" data-count="100">
+                                    100+
+                                </h2>
+                                <p class="translate-innerhtml" la="参赛用户">参赛用户</p>
+                            </div>
+                            <div class="line"></div>
+                            <div>
+                                <h2 class="counter" data-count="200">
+                                    200+
+                                </h2>
+                                <p class="translate-innerhtml" la="参赛作品">参赛作品</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner">
+                    <!-- <img src="../static/home/images/bg-02.jpg" alt="banner"> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/images/bg-02.jpg" alt="banner">
+                </div>
+            </div>
+            <div class="formalign" id="formalign" style="display: none;">
+                <a name="submit"></a>
+                <form method="post" action="/" id="submitForm" name="survey-form">
+                    <div class="text-center">
+                        <span id="submitTitle" class="translate-innerhtml" la="提交表单">提交表单</span>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                        <div id="la_username" class="la translate-innerhtml" la="用户名 *">用户名 *</div> 
+                        <input class="translate-placeholder" type="text" id="username" name="username" placeholder="必填" la="必填" autocomplete="off" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                        <div id="la_number" class="la translate-innerhtml" la="视频Bv号/油管序列 *">视频Bv号/油管序列 *</div> 
+                        <input class="translate-placeholder" type="text" id="bvNumber" name="bvNumber" placeholder="必填，格式：BV.../YT序列" la="必填，格式：BV.../YT序列" autocomplete="off" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                        <div id="la_score" class="la translate-innerhtml" la="成绩 *">成绩 *</div> 
+                        <input class="translate-placeholder" type="text" id="score" name="score" placeholder="必填，例如：810秒" la="必填，例如：810秒" autocomplete="off" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div id="la_track" class="la translate-innerhtml" la="选择赛道 *">选择赛道 *</div> 
+                            <select id="track" name="track">
+                                {% for track_set in track_set_list %}
+                                    <option value="{{ track_set }}" la="{{ track_set }}" class="translate-innerhtml">{{ track_set }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <input class="" type="hidden" id="submitTime" name="submitTime"/>
+                    <div id="wrap-captcha">
+                        <div id="captcha" d="{{ vcode }}">
+                        </div>
+                        <input type="hidden" id="verify_code" name="verify_code" value="0">
+                    </div>
+                    <div class="mainbtn">
+                        <button id="submitScore" type="submit" class="btn translate-innerhtml" la="提交">提交</button>
+                        <button id="submitReset" type="reset" class="btn translate-innerhtml" la="清空">清空</button>
+                    </div>
+                </form>
+                <div class="copyright">
+                    <div>Designed By Jason</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="cards">
+        <a name="tutorials"></a>
+        <div class="container">
+            <div class="card" style="--i: 0;">
+                <!-- <img src="../static/home/images/基础篇.jpg" alt="analytics"> -->
+                <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/images/%E5%9F%BA%E7%A1%80%E7%AF%87.jpg" alt="analytics">
+                <div class="card-text">
+                    <h3 class="translate-innerhtml" la="基础篇">基础篇</h3>
+                    <p class="translate-innerhtml" la="安柏培养教程，以星落湖为起点（作者：绯星xh）">
+                        安柏培养教程，以星落湖为起点（作者：绯星xh）
+                    </p>
+                    <a href="https://www.bilibili.com/video/BV1FT411j7fE" target="_blank">
+                        <span class="translate-innerhtml" la="前往学习">前往学习</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card" style="--i: 2;">
+                <!-- <img src="../static/home/images/进阶篇.png" alt="analytics"> -->
+                <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/images/%E8%BF%9B%E9%98%B6%E7%AF%87.png" alt="analytics">
+                <div class="card-text">
+                    <h3 class="translate-innerhtml" la="进阶篇">进阶篇</h3>
+                    <p class="translate-innerhtml" la="安柏培养教程，包含扩火染冰等（作者：明天或许是晴天）">
+                        安柏培养教程，包含扩火染冰等（作者：明天或许是晴天）
+                    </p>
+                    <a href="https://www.bilibili.com/video/BV1u44y1N7De" target="_blank">
+                        <span class="translate-innerhtml" la="前往学习">前往学习</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card" style="--i: 4;">
+                <!-- <img src="../static/home/images/物理篇.jpg" alt="analytics"> -->
+                <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/images/%E7%89%A9%E7%90%86%E7%AF%87.jpg" alt="analytics">
+                <div class="card-text">
+                    <h3 class="translate-innerhtml" la="物理篇">物理篇</h3>
+                    <p class="translate-innerhtml" la="安柏培养教程，包含物理速射等（作者：冲余鸟sx04512）">
+                        安柏培养教程，包含物理速射等（作者：冲余鸟sx04512）
+                    </p>
+                    <a href="https://www.bilibili.com/video/BV1Ff4y1w7dK" target="_blank">
+                        <span class="translate-innerhtml" la="前往学习">前往学习</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<!-- <script src="../static/share/js/dict.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/share/js/dict.js"></script>
+<!-- <script src="../static/home/js/translate.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/js/translate.js"></script>
+<script>
+if (!window.jigsaw) {
+//   document.write('<script src="../static/home/jigsaw/dist/jigsaw.min.js"><\/script>');
+  document.write('<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/jigsaw/dist/jigsaw.min.js"><\/script>');
+}
+var recv = +(document.getElementById("captcha").getAttribute('d'));
+var verify = 0;
+</script>
+<!-- <script src="../static/home/js/home.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/home/js/home.js"></script>
+<!--===============================================================================================-->
+	<!-- <script src="../static/source/vendor/jquery/jquery-3.2.1.min.js"></script> -->
+    <script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/source/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<!-- <script src="../static/source/js/main.js"></script> -->
+    <script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/source/js/main.js"></script>

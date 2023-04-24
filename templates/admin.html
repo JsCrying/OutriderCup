@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <!--===============================================================================================-->	
+	    <link rel="icon" type="image/png" href="../static/chores/favicon.ico"/>
+    <!--===============================================================================================-->
+        <!-- <link rel="stylesheet" type="text/css" href="../static/source/vendor/bootstrap/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" type="text/css" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/source/vendor/bootstrap/css/bootstrap.min.css">
+        <!-- <link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/> -->
+        <!-- <link rel="stylesheet" href="../static/admin/css/googleapis.css"> -->
+        <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/css/googleapis.css">
+        <!-- <link rel="stylesheet" href="../static/admin/css/admin.css"> -->
+        <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/css/admin.css">
+        <!-- <link rel="stylesheet" href="../static/admin/css/util.css"> -->
+        <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/css/util.css">
+        <!-- <link rel="stylesheet" href="../static/admin/css/auditform.css"> -->
+        <link rel="stylesheet" href="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/css/auditform.css">
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-admin">
+            <div class="formalign" id="formalign" style="display: none;">
+                <!--  -->
+                <form method="post" action="/audit_submit" id="submitForm" name="survey-form">
+                    <div class="text-center">
+                        <span class="translate-innerhtml" la="审核表单">审核表单</span>
+                    </div>
+                    <input type="hidden" id="uid" name="uid"/>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="用户名 *">用户名 *</div>
+                            <input class="" type="text" id="username" name="username" autocomplete="off" readonly="true" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="视频源 *">视频源 *</div>
+                            <input class="" type="text" id="bvNumber" name="bvNumber" autocomplete="off" readonly="true" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="纸面成绩 *（秒）">纸面成绩 *（秒）</div>
+                            <input class="" type="text" id="score" name="score" autocomplete="off" required />
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="选择赛道 *">选择赛道 *</div>
+                            <select id="track" name="track">
+                                {% for track_set in track_set_list %}
+                                    <option value="{{ track_set }}" class="translate-innerhtml" la="{{ track_set }}">{{ track_set }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="状态 *">状态 *</div>
+                            <select id="status" name="status">
+                                <option value="已通过" class="translate-innerhtml" la="已通过" selected>已通过</option>
+                                <option value="不通过" class="translate-innerhtml" la="不通过">不通过</option>
+                                <option value="待审核" class="translate-innerhtml" la="待审核">待审核</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="罚时原因">罚时原因</div>
+                            <textarea class="bigtext translate-innerhtml" la="无" type="text" id="punish_reason" name="punish_reason" autocomplete="off">无</textarea>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="罚时秒数 *（秒）">罚时秒数 *（秒）</div>
+                            <input class="translate-placeholder" la="只填数字" type="text" id="punish_time" name="punish_time" autocomplete="off" placeholder="只填数字" value="0" oninput="value=value.replace(/[^\d]/g,'')" required/>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="最终成绩 *（秒）">最终成绩 *（秒）</div>
+                            <input class="translate-placeholder" la="只填数字,特殊填0" type="text" id="final_score" name="final_score" autocomplete="off" placeholder="只填数字,特殊填0" oninput="value=value.replace(/[^\d]/g,'')" required/>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="使用流派 *">使用流派 *</div>
+                            <select id="tributary" name="tributary">
+                                {% for tributary in tributary_list %}
+                                    <option value="{{ tributary }}" class="translate-innerhtml" la="{{ tributary }}">{{ tributary }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="精彩时刻">精彩时刻</div>
+                            <textarea class="bigtext translate-innerhtml" la="无" type="text" id="ex_time" name="ex_time" autocomplete="off">无</textarea>
+                        </label>
+                    </div>
+                    <input type="hidden" id="audit_admin" name="audit_admin"/>
+                    <div class="formblock">
+                        <label>
+                            <div class="translate-innerhtml" la="备注">备注</div>
+                            <textarea class="bigtext translate-innerhtml" la="无" type="text" id="remarks" name="remarks" autocomplete="off">无</textarea>
+                        </label>
+                    </div>
+                    <input class="" type="hidden" id="submitTime" name="submitTime"/>
+                    <div class="mainbtn">
+                        <button id="submitScore" type="submit" class="btn translate-innerhtml" la="提交">提交</button>
+                        <button id="submitReset" type="reset" class="btn translate-innerhtml" la="关闭">关闭</button>
+                    </div>
+                </form>
+            </div>
+            <div class="wrap-admin">
+                <header>
+                    <div id="logo" data-language="{{ language }}">
+                        <span class="translate-innerhtml" la="第">第</span>
+                        {{ session_number }}
+                        <span class="translate-innerhtml" la="届">届</span>
+                    </div>
+                    <ul>
+                        <li><a href="/logout" class='active translate-innerhtml' la="退出登录" id="logout">退出登录</a></li>
+                        <li><a href="/log" target="_blank" class="translate-innerhtml" la="日志">日志</a></li>
+                        <li><a href="/score" class="translate-innerhtml" la="成绩">成绩</a></li>
+                    </ul>
+                </header>
+                <section>
+                    <!-- <img src="../static/admin/images/stars.png" alt="" id="stars"> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/images/stars.png" alt="" id="stars">
+                    <!-- <img src="../static/admin/images/moon.png" alt="" id="moon"> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/images/moon.png" alt="" id="moon">
+                    <!-- <img src="../static/admin/images/mountains_behind.png" alt="" id="mountain_behind"> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/images/mountains_behind.png" alt="" id="mountain_behind">
+                    <div id="text">Hi {{ admin_name }}</div>
+                    <a href="#audit-table" id="btn" class="translate-innerhtml" la="审核">审核</a>
+                    <!-- <img src="../static/admin/images/mountains_front.png" alt="" id="mountain_front"> -->
+                    <img src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/images/mountains_front.png" alt="" id="mountain_front">
+                </section>
+                <div id="audit-table" style="display: none;">
+                    <div class="wrap-audit">
+
+                        <h4 class="translate-innerhtml" la="审核表格">审核表格</h4>
+                        <div class="container-audit">
+                            <table class="content">
+
+                            <table>
+                            <ul class="pagination"></ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- <script src="../static/share/js/dict.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/share/js/dict.js"></script>
+<!-- <script src="../static/admin/js/translate.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/js/translate.js"></script>
+<!-- 字幕移动 -->
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    let stars=$('stars');
+    let moon=$('moon');
+    let mountain_behind=$('mountain_behind');
+    let text=$('text');
+    let btn=$('btn');
+    let mountain_front=$('mountain_front');
+
+    window.addEventListener('scroll', function() {
+        let value=window.scrollY;
+        let wh=window.innerHeight;
+        //concole.log(value);
+        stars.style.left=value*0.25+'px';
+        moon.style.top=value*1.2+'px';
+        mountain_behind.style.top=value*0.5+'px';
+        // text.style.marginRight=value*8+'px';
+        // text.style.marginTop=value*0.5+'px';
+        text.style.left=(100.0-value/wh*100)+'%';
+        btn.style.marginRight=value*1.5+'px';
+        btn.style.marginTop=value*0.8+'px';
+    })
+</script>
+<!-- 选手成绩表单 -->
+<!-- <script src="../static/admin/js/auditform.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/js/auditform.js"></script>
+<!-- 管理员审核表单 -->
+<!-- <script src="../static/admin/js/auditsubmit.js"></script> -->
+<script src="https://amber-1-zcqsb.oss-cn-shanghai.aliyuncs.com/static/admin/js/auditsubmit.js"></script>
