@@ -8,6 +8,7 @@ from routes.config import (
     videoURL, 
     track_set, 
     session_number,
+    rules
 )
 from routes.verify import (
     generate_raw,
@@ -42,7 +43,7 @@ def home():
         arg = request.args
         if len(arg) > 0:
             msg = arg['msg']
-        return render_template('home.html', msg=msg, vcode=en_vcode(vcode), track_set_list=track_set[session_number], session_number=session_number)
+        return render_template('home.html', msg=msg, vcode=en_vcode(vcode), track_set_list=track_set[session_number], session_number=session_number, rule=rules[session_number])
     # POST
     # obtain form information
     submitForm = request.form 
@@ -261,7 +262,7 @@ def log():
     return render_template('log.html', log_list=log_list)
 @app.route('/score', methods=['GET'])
 def score():
-    return render_template('score.html', session_number=session_number, tributary_list=tributary_list)
+    return render_template('score.html', session_number=session_number, tributary_list=tributary_list, session_list=range(0, session_number+1))
 @app.route('/fetch')
 def fetch():
     session_number = int(request.args['session_number'])
@@ -369,5 +370,5 @@ def load_track():
         'track_set': track_set_list
     })
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port='443')
-    # app.run()
+    # app.run(debug=True, host='0.0.0.0', port='5000')
+    app.run(debug=True)

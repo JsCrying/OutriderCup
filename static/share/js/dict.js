@@ -99,6 +99,9 @@ const dict_cn2en = {
     '娱乐赛道': 'Entertainment Track',
     '深渊单通': 'Abyss Solo',
     '大世界赛道': 'Overworld Track',
+    '12层五成本': '12F&5-COST',
+    '12层高占比': '12F&High Proportion',
+    '11层上半': '11F&First Half',
     '待审核': 'Pending',
     '不通过': 'Fail'
 };

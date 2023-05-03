@@ -208,6 +208,7 @@ function fetch_scores(session_number_value, choice_value) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status >= 200 && xhr.status < 300) {
+                concealLoading();
                 let items = xhr.response.fetch_list;
                 construct(items);         
             }
